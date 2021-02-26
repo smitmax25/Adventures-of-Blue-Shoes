@@ -6,7 +6,7 @@ class Map {
     this.enemyList = [];
     this.itemList = [];
 
-    // Based on the level and its values (0 or 1), identify it as an Air piece or a Ground piece
+    // Based on the level and its values (0 or 1), identify it as an Air, Ground, or Powerup piece
     for (var row = 0; row < this.blocks.length; row++) {
       for (var col = 0; col < this.blocks[row].length; col++) {
         if (this.blocks[row][col] == 0) {
@@ -14,6 +14,9 @@ class Map {
         }
         if (this.blocks[row][col] == 1) {
           this.blocks[row][col] = new Ground(col * 50, row * 50);
+        }
+        if (this.blocks[row][col] == 2) {
+          this.blocks[row][col] = new Powerup(col * 50, row * 50);
         }
       }
     }

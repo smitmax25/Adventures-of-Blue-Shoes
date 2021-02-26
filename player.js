@@ -5,6 +5,8 @@ class Player {
     this.jumpVelocity = -9;
     this.gravity = 0.4;
     this.size = 50;
+    this.groundState;
+    this.lastVelocity = createVector(200, 200);;
   }
 
   // Processes current inputs and updates the position of the player
@@ -57,6 +59,7 @@ class Player {
       this.pos.y = this.getLoc()[1] * 50 + 50
       return "top";
     }
+    //console.log(this.getBlockType(0, -3));
     return false;
   }
 
@@ -67,21 +70,21 @@ class Player {
   }
 
   updateGravity() {
+  
+    // Update velocity
+    this.velocity.add(0, this.gravity);
+    // Update position
     this.pos.add(this.velocity);
+    // Prevent clipping and check position
+    this.groundState = this.onGround();
 
-    // If we're falling, increase the velocity
-    if (this.isFalling()) {
-      this.velocity.add(0, this.gravity);
+    if (this.groundState == "top") {
+        this.velocity.y = this.gravity;
+        this.pos.add(this.velocity);
     }
-    else 
-    // If we hit the ceiling, set the velocity to 0 and start decreasing it
-    if (this.isFalling() && this.onGround() == "top") {
+
+    if (this.groundState == "bottom") {
       this.velocity.y = 0;
-      this.velocity.add(0, this.gravity);
-    }
-    // Otherwise, 0 out the velocity by multiplying with 0
-    else {
-      this.velocity.mult(0);
     }
   }
 
@@ -92,6 +95,15 @@ class Player {
   }
 
   processInput() {
+    if (keyIsDown(87)) {
+      console.log(this.groundState);
+    }
+    if(keyIsDown(65)) {
+      console.log(this.velocity.toString());
+    }
+    if(keyIsDown(68)) {
+      console.log(this.pos.toString());
+    }
     if (keyIsDown(LEFT_ARROW)) {
       if (this.getBlockType(-1, 25) != "Ground") {
         if (this.pos.x < width / 4) {
@@ -116,6 +128,6 @@ class Player {
   }
   
   draw() {
-    image(/* if(keysPressed.has('ArrowLeft')) {playerTurnedLeft_image} else { */ player_image /* } */, this.pos.x, this.pos.y, this.size, this.size);
+    image(player_image, this.pos.x, this.pos.y, this.size, this.size);
   }
 }
