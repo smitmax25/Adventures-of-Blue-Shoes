@@ -7,3 +7,11 @@ html,
   canvas {
     display: block;
   }
+
+#offline {
+  position: fixed;
+}
+
+.hidden {
+  display: none;
+}

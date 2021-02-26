@@ -2,6 +2,7 @@
   <script src="p5.min.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
   <meta charset="utf-8">
+  <link rel="manifest" href="/app.webmanifest">
 
 </head>
 
@@ -12,4 +13,14 @@
   <script src="player.js"></script>
   <script src="sketch.js"></script>
   <script src="powerup.js"></script>
+  <script src="registerServiceWorker.js" type="module"></script>
+  <p id="offline">
+    Offline Status: 
+    <span id="offlineStatus"></span>
+    <span id="newVersion" class="hidden">
+      <br>
+      A newer version of Adventures of Blue Shoes is ready.
+      <button id="update">Update and Reload</button>
+    </span>
+  </p>
 </body></html>
